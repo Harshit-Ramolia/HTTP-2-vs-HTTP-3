@@ -34,17 +34,13 @@ server.on('stream', (stream, headers) => {
   // we can use the `respond` method to send
   // any headers. Here, we send the status pseudo header
   console.log( headers[':path'])
-  if ( headers[':path'] == "/"){
+  if (headers[':path'] == "/"){
     stream.respond({
           ':status': 200
     })
-    // stream.end('Hello World')
-    // push(res.stream, 'bundle1.js')
+    stream.end(fs.readFileSync('index.html'))
   }else{
-    stream.respond({
-      ':status': 200
-    })
-    stream.end()
+    stream.end(fs.readFileSync(headers[':path'].slice(1)))
   }
 })
 
