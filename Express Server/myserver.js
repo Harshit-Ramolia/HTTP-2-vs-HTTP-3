@@ -1,9 +1,15 @@
 const express = require("express"),
   app = express(),
   bodyParser = require('body-parser');
+const cors = require('cors');
 
 const path = require('path');
 app.use(express.static('public'))
+
+// const cors = require('cors');
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -16,6 +22,6 @@ app.get("/", (req, res) => {
 });
 
 
-app.listen(3000, () => {
-  console.log("App is running at port 3000");
+app.listen(3001, () => {
+  console.log("App is running at port 3001");
 });
