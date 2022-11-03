@@ -1,16 +1,12 @@
 const express = require("express"),
   app = express(),
   bodyParser = require('body-parser');
-const cors = require('cors');
+
+var cors = require('cors');
+app.use(cors());
 
 const path = require('path');
 app.use(express.static('public'))
-
-// const cors = require('cors');
-app.use(cors({
-  origin: '*'
-}));
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
