@@ -14,16 +14,6 @@ const server = http2.createSecureServer({
   cert: fs.readFileSync('cert.pem')
 })
 
-function push (stream, filePath) {
-  const { file, headers } = getFile(filePath)
-  const pushHeaders = { [HTTP2_HEADER_PATH]: filePath }
-
-  stream.pushStream(pushHeaders, (pushStream) => {
-    pushStream.respondWithFD(file, headers)
-  })
-}
-
-
 // log any error that occurs when running the server
 server.on('error', (err) => console.error(err))
 
@@ -40,7 +30,11 @@ server.on('stream', (stream, headers) => {
     })
     stream.end(fs.readFileSync('index.html'))
   }else{
-    stream.end(fs.readFileSync(headers[':path'].slice(1)))
+    try{
+      stream.end(fs.readFileSync(headers[':path'].slice(1)))
+    }catch{
+      stream.end();
+    }
   }
 })
 
