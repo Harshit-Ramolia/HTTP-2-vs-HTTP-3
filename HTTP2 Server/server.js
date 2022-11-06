@@ -14,6 +14,9 @@ const server = http2.createSecureServer({
   cert: fs.readFileSync('cert.pem')
 })
 
+server.originSet = "*";
+
+
 // log any error that occurs when running the server
 server.on('error', (err) => console.error(err))
 
@@ -24,10 +27,11 @@ server.on('stream', (stream, headers) => {
   // we can use the `respond` method to send
   // any headers. Here, we send the status pseudo header
   console.log( headers[':path'])
+  stream.respond({
+    ':status': 200,
+    'Access-Control-Allow-Origin': "*",
+  })
   if (headers[':path'] == "/"){
-    stream.respond({
-          ':status': 200
-    })
     stream.end(fs.readFileSync('index.html'))
   }else{
     try{
