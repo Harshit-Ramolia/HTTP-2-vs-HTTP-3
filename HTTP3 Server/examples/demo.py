@@ -15,6 +15,9 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette.types import Receive, Scope, Send
 from starlette.websockets import WebSocketDisconnect
+from starlette.applications import Starlette
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 
 ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.environ.get("STATIC_ROOT", os.path.join(ROOT, "htdocs"))
@@ -128,8 +131,12 @@ async def wt(scope: Scope, receive: Receive, send: Send) -> None:
                 }
             )
 
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=['*'])
+]
 
 starlette = Starlette(
+
     routes=[
         Route("/", homepage),
         Route("/{size:int}", padding),
@@ -138,7 +145,7 @@ starlette = Starlette(
         Route("/logs", logs),
         WebSocketRoute("/ws", ws),
         Mount(STATIC_URL, StaticFiles(directory=STATIC_ROOT, html=True)),
-    ]
+    ], middleware=middleware
 )
 
 

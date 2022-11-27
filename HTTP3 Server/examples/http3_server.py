@@ -455,7 +455,7 @@ class HttpServerProtocol(QuicConnectionProtocol):
             if event.data == b"quack":
                 self._quic.send_datagram_frame(b"quack-ack")
 
-        #  pass event to the HTTP layer
+        #  pass event to the HTTP layer
         if self._http is not None:
             for http_event in self._http.handle_event(event):
                 self.http_event_received(http_event)
