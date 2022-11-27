@@ -10,6 +10,8 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette.types import Receive, Scope, Send
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 
 ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.environ.get("STATIC_ROOT", os.path.join(ROOT, "htdocs"))
@@ -25,13 +27,17 @@ async def homepage(request):
     await request.send_push_promise("/style.css")
     return templates.TemplateResponse("index.html", {"request": request})
 
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=['*'])
+]
 
 
 starlette = Starlette(
     routes=[
         Route("/", homepage),
         Mount(STATIC_URL, StaticFiles(directory=STATIC_ROOT, html=True)),
-    ]
+    ],
+    middleware=middleware
 )
 
 
