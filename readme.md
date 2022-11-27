@@ -1,13 +1,20 @@
 ## Express server (HTTP/1.1)
+To install the HTTP/1.1 server, run:
+```
+cd Express
+npm install
+```
 To run the HTTP/1.1 server, execute the following in  a terminal:
 ```
-node Express/myserver.js
+cd Express
+node myserver.js
 ```
 
 ## HTTP/2 server
 To run the HTTP/2 server, execute the following in  a terminal:
 ```
-node HTTP2/server.js
+cd  HTTP2
+node server.js
 ```
 
 ## HTTP/3 server
