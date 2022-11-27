@@ -18,7 +18,7 @@ node server.js
 ```
 
 ## HTTP/3 server
-Running the HTTP/3 server requires installing the [`aioquic` library](https://github.com/aiortc/aioquic).
+Running the HTTP/3 server requires installing the [`aioquic library`](https://github.com/aiortc/aioquic).
 
 After installation, please run the following commands from the root directory in separate terminals to access the server:
 
