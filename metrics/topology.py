@@ -58,33 +58,48 @@ net = Mininet(topo=topo)
 # net.addNAT().configDefault()
 net.start()
 dumpNodeConnections(net.hosts)
-CLI(net)
+# CLI(net)
 S1, C1, C2, C3, C4 = net.get('S1', 'C1', 'C2', 'C3', 'C4')    
 C1_ = net.get('C1')
 
+### trying popen
 
 # proc = subprocess.Popen(['sudo', 'mn'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
 # proc.stdin.write('ls')
 # print(proc.stdout.readline())
+
+
+
+### trying pexpect
 
 # child = pexpect.spawn('xterm S1')
 # child.sendline('pwd')
 # print(child.read())
 # child.interact()
 
-# S1.cmd('cd ../Express')
-# result = S1.cmd('npm install')
-# print(result)
+
+
+### trying multiprocessing
 
 # s1 = multiprocessing.Process(target = launch_server) 
 # c1_client = multiprocessing.Process(target = launch_client) 
 # c1_scraper = multiprocessing.Process(target = launch_scraper) 
 
-# launch_scraper()
-
 # s1.start()
 # c1_client.start()
 # c1_scraper.start()
+
+
+
+### trying CLI
+
+# S1.cmd('cd ../Express')
+# result = S1.cmd('pwd')
+# print(result)
+# result = S1.cmd('npm install')
+# print(result)
+
+# launch_scraper()
 
 # S1.cmd('cd ../HTTP2')
 # result = S1.cmd('pwd')
